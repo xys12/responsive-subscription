@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+/* boxsizing make sure when chage the padding, the sizing of box would not change */
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #fefefe;
+  }
+
+h1{
+    text-align: center;
+    margin-top: 50px;
+}
+
+  .pricing {
+    padding: 100px 0;
+  }
+
+/* 设置每张卡片 */
+.cards-wrapper {
+    /* 自定义属性，在名字前加上两个连字符“--”，当当变量使用是，会调用他的数值，区分大小写 */
+    /* 在cards-wrapper里都可以使用这个自定义属性 */
+    /* 如果与body设置或其他设置重叠了，cards-wrapper里面的是30，
+    而其他元素（除去cards-wrapper)是显示的是body里面的设置 */
+    --gutter: 30px;
+    /* allows three cards in a row */
+    display: flex;
+    /* in the center */
+    /* 水平是由justify控制 */
+    justify-content: center;
+    max-width: 1440px;
+    width: 90%;
+    /* 水平居中 */
+    margin: 0 auto;
+}
+
+ /* color of first card */
+.price-card.clr-1 {
+    /* --clr: #ffb319; */
+    --clr: #ff3200;
+}
+
+/* second card */
+.price-card.clr-2 {
+    /* --clr: #6f69ac; */
+    --clr: #ff6d34;
+}
+
+/* third card */
+.price-card.clr-3 {
+    /* --clr: #80ed99; */
+    --clr: #0dcaef;
+}
+
+/* for all the cards */
+.price-card{
+    --bg-clr:#fff;
+    --text-clr: #333;
+    /* setting every boder */
+    border: 5px solid var(--clr);
+    padding: 40px 20px;
+    background-color: var(--bg-clr);
+    border-radius: 10px;
+}
+
+/* 不是最右边的那一个, margin right 30px
+还有first-child等等 */
+.price-card:not(:last-child){
+    margin-right: var(--gutter);
+}
+
+/* change icon color */
+.price-card .fa-check{
+    color: #57cc99;
+}
+.price-card .fa-times{
+    color: #ff0000;
+}
+
+/* details */
+/* price part */
+.price-container {
+    width: 140px;
+    height: 140px;
+    background-color: var(--clr);
+    border-radius: 50%;
+    font-weight: bold;
+    color:#fff;
+
+    /* word goes to center */
+    /* text-align: center;
+    line-height: 140px;
+    or */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* circle container goes to center */
+    margin: 0 auto;
+    box-shadow: 0 0 0 5px var(--bg-clr), 0 0 0 10px var(--clr);
+}
+
+/* 让$和价格向上对齐 */
+.price {
+    display: flex;
+}
+
+/* set the different font size */
+.price span:first-child {
+    font-size: 30px;
+}
+.price span:last-child {
+    font-size: 50px;
+}
+
+/* second part */
+.plan {
+    margin: 30px 0;
+    text-transform: capitalize;
+    font-size: 30px;
+    color: var(--text-clr);
+    text-align: center;
+    position: relative;
+}
+
+/* line */
+.plan::before {
+    content: " ";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: var(--clr);
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.plan span {
+    background-color: var(--bg-clr);
+    padding: 0 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.deliverables-wrapper {
+    /* 去掉list前面的小点 */
+    list-style: none;
+}
+
+.deliverable {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+}
+
+.deliverable:not(:last-child) {
+    margin-bottom: 20px;
+}
+.deliverable span:first-child {
+    text-transform: capitalize;
+    color: var(--text-clr);
+    margin-right:15px;
+}
+
+/* part 4 */
+.align-center {
+    text-align: center;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 45px;
+    padding: 1em 3em;
+    border:3px solid var(--clr);
+    text-decoration: none;
+    font-size: 18px;
+    color: var(--clr);
+    border-radius: 100px;
+    transition: all 0.3s;
+}
+
+/* 鼠标在上面是 */
+.btn:hover{
+    color: #fff;
+    background-color: var(--clr);
+}
+
+/* 在缩小界面的时候，排版改变 */
+/* 宽度1200的时候，第一排只有两个 */
+@media (max-width:1200px) {
+    .cards-wrapper {
+        flex-wrap: wrap;
+    }
+    .price-card {
+        width: calc(50% - var(--gutter));
+    }
+    /* 第二个card不需要margin- right了 */
+    .price-card:nth-child(2) {
+        margin-right: 0;
+    }
+    /* 最后一个card在底下 */
+    .price-card:last-child {
+        margin-top: var(--gutter);
+    }
+}
+
+/* 在宽度768以下时，一行一个 */
+@media (max-width: 768px) {
+    .cards-wrapper {
+        flex-direction:column;
+        align-items: center;
+    }
+    .price-card:first-child {
+        margin-right: 0;
+    }
+    .price-card:last-child {
+        margin-top: 0;
+    }
+    .price-card:not(:last-child) {
+        margin-bottom: var(--gutter);
+    }
+}
+
+/* 如果再小一点的话（宽度小于314)，里面东西也变小 */
+@media (max-width: 314px) {
+    .price-container {
+        width: 120px;
+        height: 120px;
+    }
+    .btn {
+        padding: 0.5em 2em;
+    }
+}
